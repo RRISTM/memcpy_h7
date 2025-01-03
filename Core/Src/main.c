@@ -68,6 +68,7 @@ static void MPU_Config(void);
   * @brief  The application entry point.
   * @retval int
   */
+__attribute__((optimize("no-tree-loop-distribute-patterns")))
 int main(void)
 {
 
