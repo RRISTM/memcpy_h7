@@ -49,6 +49,7 @@ DMA_HandleTypeDef hdma_memtomem_dma1_stream4;
 DMA_HandleTypeDef hdma_memtomem_dma1_stream5;
 DMA_HandleTypeDef hdma_memtomem_dma1_stream6;
 DMA_HandleTypeDef hdma_memtomem_dma1_stream7;
+MDMA_HandleTypeDef hmdma_mdma_channel0_dma1_stream0_tc_0;
 /* USER CODE BEGIN PV */
 volatile uint32_t time1;
 volatile uint32_t time2;
@@ -56,14 +57,15 @@ volatile uint32_t diff;
 
 #define  ARRAYLEN 0x3400 //53248B 13312W
 uint32_t i; 
-uint32_t a[ARRAYLEN]; 
-uint32_t b[ARRAYLEN]; 
+uint32_t a[ARRAYLEN]__attribute__((aligned(8)));
+uint32_t b[ARRAYLEN]__attribute__((aligned(8)));
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MPU_Config(void);
 static void MX_DMA_Init(void);
+static void MX_MDMA_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -125,6 +127,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_DMA_Init();
+  MX_MDMA_Init();
   /* USER CODE BEGIN 2 */
    HAL_DMA_Start(&hdma_memtomem_dma1_stream0,a,b,ARRAYLEN);
    HAL_DMA_Start(&hdma_memtomem_dma1_stream1,a,b,ARRAYLEN);
@@ -146,6 +149,17 @@ int main(void)
    __HAL_DMA_ENABLE(&hdma_memtomem_dma1_stream6);
    __HAL_DMA_ENABLE(&hdma_memtomem_dma1_stream7);
   HAL_DMA_PollForTransfer(&hdma_memtomem_dma1_stream7, HAL_DMA_FULL_TRANSFER, 0xFFFFFFFF);
+  time2=DWT->CYCCNT;
+  diff=time2-time1;
+
+  HAL_MDMA_Start(&hmdma_mdma_channel0_dma1_stream0_tc_0, a, b, ARRAYLEN*4, 0);
+  DWT->CTRL|=DWT_CTRL_CYCCNTENA_Msk;
+  time1=DWT->CYCCNT;
+
+  /* activate If SW request mode*/
+  __HAL_MDMA_ENABLE(&hmdma_mdma_channel0_dma1_stream0_tc_0);
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Instance->CCR |=  MDMA_CCR_SWRQ;
+  HAL_MDMA_PollForTransfer(&hmdma_mdma_channel0_dma1_stream0_tc_0, HAL_MDMA_FULL_TRANSFER, 0xFFFFFFFF);
   time2=DWT->CYCCNT;
   diff=time2-time1;
   /* USER CODE END 2 */
@@ -389,6 +403,53 @@ static void MX_DMA_Init(void)
   {
     Error_Handler( );
   }
+
+}
+
+/**
+  * Enable MDMA controller clock
+  * Configure MDMA for global transfers
+  *   hmdma_mdma_channel0_dma1_stream0_tc_0
+  */
+static void MX_MDMA_Init(void)
+{
+
+  /* MDMA controller clock enable */
+  __HAL_RCC_MDMA_CLK_ENABLE();
+  /* Local variables */
+
+  /* Configure MDMA channel MDMA_Channel0 */
+  /* Configure MDMA request hmdma_mdma_channel0_dma1_stream0_tc_0 on MDMA_Channel0 */
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Instance = MDMA_Channel0;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.Request = MDMA_REQUEST_DMA1_Stream0_TC;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.TransferTriggerMode = MDMA_BUFFER_TRANSFER;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.Priority = MDMA_PRIORITY_LOW;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.Endianness = MDMA_LITTLE_ENDIANNESS_PRESERVE;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceInc = MDMA_SRC_INC_DOUBLEWORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestinationInc = MDMA_DEST_INC_DOUBLEWORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceDataSize = MDMA_SRC_DATASIZE_DOUBLEWORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestDataSize = MDMA_DEST_DATASIZE_DOUBLEWORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DataAlignment = MDMA_DATAALIGN_PACKENABLE;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.BufferTransferLength = ARRAYLEN*4;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceBurst = MDMA_SOURCE_BURST_SINGLE;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestBurst = MDMA_DEST_BURST_SINGLE;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceBlockAddressOffset = 0;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestBlockAddressOffset = 0;
+  if (HAL_MDMA_Init(&hmdma_mdma_channel0_dma1_stream0_tc_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* Configure post request address and data masks */
+  if (HAL_MDMA_ConfigPostRequestMask(&hmdma_mdma_channel0_dma1_stream0_tc_0, 0, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* MDMA interrupt initialization */
+  /* MDMA_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(MDMA_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(MDMA_IRQn);
 
 }
 

@@ -1099,12 +1099,12 @@ HAL_StatusTypeDef HAL_MDMA_Start(MDMA_HandleTypeDef *hmdma, uint32_t SrcAddress,
     MDMA_SetConfig(hmdma, SrcAddress, DstAddress, BlockDataLength, BlockCount);
 
     /* Enable the Peripheral */
-    __HAL_MDMA_ENABLE(hmdma);
+//    __HAL_MDMA_ENABLE(hmdma);
 
     if(hmdma->Init.Request == MDMA_REQUEST_SW)
     {
       /* activate If SW request mode*/
-      hmdma->Instance->CCR |=  MDMA_CCR_SWRQ;
+//      hmdma->Instance->CCR |=  MDMA_CCR_SWRQ;
     }
   }
   else
