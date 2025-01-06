@@ -653,7 +653,7 @@ HAL_StatusTypeDef HAL_DMA_Start(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, ui
     DMA_SetConfig(hdma, SrcAddress, DstAddress, DataLength);
 
     /* Enable the Peripheral */
-    __HAL_DMA_ENABLE(hdma);
+//    __HAL_DMA_ENABLE(hdma);
   }
   else
   {
