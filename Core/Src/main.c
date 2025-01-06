@@ -79,7 +79,6 @@ static void MX_MDMA_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
- __attribute__((optimize("no-tree-loop-distribute-patterns")))
 int main(void)
 {
 
@@ -264,8 +263,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream0.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream0.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream0.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream0.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream0.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream0.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream0.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream0) != HAL_OK)
   {
     Error_Handler( );
@@ -283,8 +282,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream1.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream1.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream1.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream1.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream1.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream1.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream1.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream1) != HAL_OK)
   {
     Error_Handler( );
@@ -302,8 +301,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream2.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream2.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream2.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream2.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream2.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream2.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream2) != HAL_OK)
   {
     Error_Handler( );
@@ -321,8 +320,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream3.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream3.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream3.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream3.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream3.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream3.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream3.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream3) != HAL_OK)
   {
     Error_Handler( );
@@ -340,8 +339,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream4.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream4.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream4.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream4.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream4.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream4.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream4) != HAL_OK)
   {
     Error_Handler( );
@@ -359,8 +358,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream5.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream5.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream5.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream5.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream5.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream5.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream5.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream5) != HAL_OK)
   {
     Error_Handler( );
@@ -378,8 +377,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream6.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream6.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream6.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream6.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream6.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream6.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream6.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream6) != HAL_OK)
   {
     Error_Handler( );
@@ -397,8 +396,8 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_stream7.Init.Priority = DMA_PRIORITY_LOW;
   hdma_memtomem_dma1_stream7.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
   hdma_memtomem_dma1_stream7.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-  hdma_memtomem_dma1_stream7.Init.MemBurst = DMA_MBURST_SINGLE;
-  hdma_memtomem_dma1_stream7.Init.PeriphBurst = DMA_PBURST_SINGLE;
+  hdma_memtomem_dma1_stream7.Init.MemBurst = DMA_MBURST_INC4;
+  hdma_memtomem_dma1_stream7.Init.PeriphBurst = DMA_PBURST_INC4;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_stream7) != HAL_OK)
   {
     Error_Handler( );
@@ -425,12 +424,12 @@ static void MX_MDMA_Init(void)
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.TransferTriggerMode = MDMA_BUFFER_TRANSFER;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.Priority = MDMA_PRIORITY_LOW;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.Endianness = MDMA_LITTLE_ENDIANNESS_PRESERVE;
-  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceInc = MDMA_SRC_INC_DOUBLEWORD;
-  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestinationInc = MDMA_DEST_INC_DOUBLEWORD;
-  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceDataSize = MDMA_SRC_DATASIZE_DOUBLEWORD;
-  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestDataSize = MDMA_DEST_DATASIZE_DOUBLEWORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceInc = MDMA_SRC_INC_WORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestinationInc = MDMA_DEST_INC_WORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceDataSize = MDMA_SRC_DATASIZE_WORD;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestDataSize = MDMA_DEST_DATASIZE_WORD;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DataAlignment = MDMA_DATAALIGN_PACKENABLE;
-  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.BufferTransferLength = ARRAYLEN*4;
+  hmdma_mdma_channel0_dma1_stream0_tc_0.Init.BufferTransferLength = 13312*4;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceBurst = MDMA_SOURCE_BURST_SINGLE;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.DestBurst = MDMA_DEST_BURST_SINGLE;
   hmdma_mdma_channel0_dma1_stream0_tc_0.Init.SourceBlockAddressOffset = 0;
