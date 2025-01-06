@@ -103,9 +103,10 @@ int main(void)
   HAL_SuspendTick();
   DWT->CTRL|=DWT_CTRL_CYCCNTENA_Msk;
   time1=DWT->CYCCNT;
-  for (i=0; i<ARRAYLEN; i++) { 
-    b[i] = a[i]; 
-  } 
+//  for (i=0; i<ARRAYLEN; i++) {
+//    b[i] = a[i];
+//  }
+  memcpy(b,a,ARRAYLEN*4);
   time2=DWT->CYCCNT;
   diff=time2-time1;
   /* USER CODE END SysInit */
